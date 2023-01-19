@@ -130,28 +130,58 @@ Book.prototype.changeReadStatus = function(){
 
 
 
-Book.prototype.addBook = function(){
-    let modalDiv = document.createElement("div");
-    modalDiv.classList.add("modal-div");
-    body = document.getElementById("body");
-    body.appendChild(modalDiv);
+// Book.prototype.addBook = function(){
+//     let modalDiv = document.createElement("div");
+//     modalDiv.classList.add("modal-div");
+//     modalDiv.id = "show-visible-form"
+//     body = document.getElementById("body");
+//     body.appendChild(modalDiv);
+
+// }
+
+addBookBtn = document.getElementById("add-book");
+addBookBtn.addEventListener("click", () =>{
+    modalDiv = document.getElementById("modal-div");
+    console.log(modalDiv.style)
+    if (modalDiv.style.display === ""){
+        modalDiv.style.display = "flex"
+    } else{
+        modalDiv.style.display = ""
+    }
+})
 
 
+submitBookButton = document.getElementById("submit-button")
+submitBookButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    formElement = document.getElementById("form")
+    let theForm = document.forms.form
+    let formData = new FormData(theForm)
+    let author = formData.get('author');
 
+    let title = formData.get("title");
+    let pages = formData.get("pages");
+    let read = formData.get("read");
 
+    if (read == "on"){
+        read = "True";
+    }
+    else{
+        read = "False"
+    }
 
-
-}
-
-
-
-
-
+    let book = new Book(author, title, pages, read, false);
+    Book.prototype.myLibrary.push(book)
+    Book.prototype.showBooks();
+    formElement.reset()
+    modalDiv = document.getElementById("modal-div");
+    modalDiv.style.display = ""
+})
 
 
 
 let book1 = new Book("Douglass Micks", "A Flight to Eiyre", 343, "True", false);
-let book2 = new Book("Douglass Micks", "A Flight to Eiyre", 343, "True", false);
+let book2 = new Book("Daniel Arlons", "Beseeched by Light", 857, "True", false);
 
 
 
