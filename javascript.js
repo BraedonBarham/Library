@@ -1,4 +1,3 @@
-const myLibrary = [];
 
 function Book(author, title, numPages, isRead, isShown){
     this.author = author;
@@ -7,23 +6,25 @@ function Book(author, title, numPages, isRead, isShown){
     this.isRead = isRead;
     this.isShown = isShown;
 }
+Book.prototype.myLibrary = []
 
-function showBooks(books){
-    for (let i = 0; i < books.length; i++)
-        if (!books[i].isShown){
-            books[i].isShown = true;
-            createBookElement(books[i])
+Book.prototype.showBooks = function(){
+    for (let i = 0; i < Book.prototype.myLibrary.length; i++)
+        if (!Book.prototype.myLibrary[i].isShown){
+            Book.prototype.myLibrary[i].isShown = true;
+            Book.prototype.myLibrary[i].createBookElement()
         }
 
 }
 
-function createBookElement(book){
+Book.prototype.createBookElement = function(){
+
     bookElement = document.createElement("div");
 
-    let bookElementAuthor = document.createTextNode(`Author: ${book.author}`);
-    let bookElementTitle = document.createTextNode(`Title: ${book.title}`) 
-    let bookElementPages = document.createTextNode(`Number of Pages: ${book. numPages}`);
-    let bookElementRead = document.createTextNode(`Read: ${book.isRead}`);
+    let bookElementAuthor = document.createTextNode(`Author: ${this.author}`);
+    let bookElementTitle = document.createTextNode(`Title: ${this.title}`) 
+    let bookElementPages = document.createTextNode(`Number of Pages: ${this. numPages}`);
+    let bookElementRead = document.createTextNode(`Read: ${this.isRead}`);
     bookElement.appendChild(bookElementAuthor);
     bookElement.appendChild(document.createElement("br"));
     bookElement.appendChild(document.createElement("br"));
@@ -38,15 +39,21 @@ function createBookElement(book){
     bookElement.appendChild(bookElementRead);
     bookElement.appendChild(document.createElement("br"));
     bookElement.classList.add("card")
-    addButtonsToBookElement(bookElement)
-    addBookToDOM(bookElement);
+    
+    this.addButtonsToBookElement()
+    this.addBookToDOM();
+
+
+
+
 }
 
-function addButtonsToBookElement(bookElement){
+Book.prototype.addButtonsToBookElement = function(){
     bookElement.appendChild(document.createElement("button"))
 }
 
-function addBookToDOM(bookElement){
+
+Book.prototype.addBookToDOM = function(){
     let contentHolder = document.getElementById("main-content");
     contentHolder.appendChild(bookElement);
 }
@@ -59,8 +66,8 @@ let book2 = new Book("Douglass Micks", "A Flight to Eiyre", 343, true, false);
 
 
 
-myLibrary.push(book1);
-myLibrary.push(book2);
+Book.prototype.myLibrary.push(book1);
+Book.prototype.myLibrary.push(book2);
 
 
-showBooks(myLibrary)
+book1.showBooks(Book.prototype.myLibrary)
